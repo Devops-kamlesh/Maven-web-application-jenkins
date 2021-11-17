@@ -8,6 +8,11 @@ pipeline{
     triggers{
         githubPush()
     }
+    options{
+        timeout(time: 60, unit: 'SECONDS') {
+    // some block
+}
+    }
     stages{
         stage('CheckoutCode'){
             steps{
