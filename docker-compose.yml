@@ -1,0 +1,32 @@
+version: '3.1'
+services:
+  springapp:
+    image: docker8955/spring-boot-mongo:latest
+    ports:
+    - 8080:8080
+    networks:
+    - flipkart
+    environment:
+    - MONGO_DB_HOSTNAME=mongo
+    - MONGO_DB_USERNAME=dev
+    - MONGO_DB_PASSWORD=dev@123
+    depends_on:
+    - mongo
+
+  mongo: 
+    image: mongo
+    networks:
+    - flipkart
+    environment:
+    - MONGO_INITDB_ROOT_USERNAME=dev
+    - MONGO_INITDB_ROOT_PASSWORD=dev@123
+    volumes:
+    - mongovol:/data/db
+    restart: always
+    
+volumes:
+  mongovol:
+    driver: local
+networks:
+  flipkart:
+    driver: bridge
